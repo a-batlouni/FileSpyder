@@ -9,11 +9,7 @@ def makeDict():
     print(dirDict)
     
     
-'''
-os.chdir("/Users/admin")
-Convert()
-print(dir_dict)
-'''
+
 
 makeDict()
 
