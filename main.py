@@ -7,9 +7,6 @@ def makeDict():
     dirLength=list(range(len(dirContent)))
     dirDict=dict(zip(dirLength,dirContent))
     print(dirDict)
-    
-    
-
 
 makeDict()
 
