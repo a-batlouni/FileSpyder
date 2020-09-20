@@ -1,13 +1,22 @@
 import os
 
-dirContent = os.listdir()
+'''class Spyder:
+        def __init__(self):
+            self.path = None
+            self.data = None
+
+'''
+#def getPath():
+
+data = None
+path = None
 
 def makeDict():
-    dirContent=os.listdir()
+    dirContent=os.listdir(path)
     dirLength=list(range(len(dirContent)))
-    dirDict=dict(zip(dirLength,dirContent))
-    print(dirDict)
+    data=dict(zip(dirLength,dirContent))
+    return(data)
 
-makeDict()
+print(makeDict())
 
 
