@@ -1,11 +1,5 @@
 import os
 
-'''class Spyder:
-        def __init__(self):
-            self.path = None
-            self.data = None
-
-'''
 #def getPath():
 
 data = None
