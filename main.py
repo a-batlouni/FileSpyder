@@ -41,3 +41,7 @@ x.fileExtension()
 x.makeDict()
 x.crawl()
 # add matching files, list dirs
+
+# next step is to print the dirs in the current working directory, and ask user if filespyder should continue crawling
+#   if yes, restart processes (makeDict(), crawl())
+#   if no, retrieve current hitList files
