@@ -22,9 +22,9 @@ class Spyder:
     def crawl(self):
         for key, value in self.dirDict.items():
             if value is True:
-                print("This is a dir")
+                print(key + "is a dir")
             else:
-                print('This is a file')
+                print(key + 'is a file')
         
 x = Spyder(".")
 
