@@ -8,6 +8,7 @@ class Spyder:
         self.dirDict = None
         self.fileType = ""
         self.hitList = []
+        self.dirList = []
 
     def makeDict(self):
         emptyList = []
@@ -25,6 +26,7 @@ class Spyder:
         for key, value in self.dirDict.items():
             if value is True:
                 print(key + ' is a dir')
+                self.dirList.append(key)
             else:
                 print(key + ' is a file')
                 if key.endswith(self.fileType):
@@ -41,7 +43,4 @@ x.fileExtension()
 x.makeDict()
 x.crawl()
 # add matching files, list dirs
-
-# next step is to print the dirs in the current working directory, and ask user if filespyder should continue crawling
-#   if yes, restart processes (makeDict(), crawl())
-#   if no, retrieve current hitList files
+# os.chdir & print(os.path.abspath("."))
