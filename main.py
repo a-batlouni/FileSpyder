@@ -26,7 +26,6 @@ class Spyder:
                 print(key + ' is a file')
         
 x = Spyder(".")
-
 x.makeDict()
 x.crawl()
 
