@@ -1,7 +1,6 @@
 import os
 import pathlib
 
-
 class Spyder:
     def __init__(self, path):
         self.path=path
@@ -27,7 +26,6 @@ class Spyder:
                 print(key + ' is a file')
         
 x = Spyder(".")
-
 x.makeDict()
 x.crawl()
 
