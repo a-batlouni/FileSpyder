@@ -1,7 +1,6 @@
 import os
 import pathlib
 
-
 class Spyder:
     def __init__(self, path):
         self.path=path
@@ -22,9 +21,9 @@ class Spyder:
     def crawl(self):
         for key, value in self.dirDict.items():
             if value is True:
-                print(key + "is a dir")
+                print(key + ' is a dir')
             else:
-                print(key + 'is a file')
+                print(key + ' is a file')
         
 x = Spyder(".")
 
