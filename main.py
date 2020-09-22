@@ -1,16 +1,19 @@
 import os
 
-#def getPath():
 
-data = None
-path = None
+def dirDict(path):
+    emptyList=[]
+    # Returns contents of current working dir
+    dirList = os.listdir(path)
+    # Checks to see if each content of working dir is a dir
+    for contents in dirList:
+        emptyList.append(os.path.isdir(contents))
+    # Combines lists to create dictionary with file name as key and isDir as value
+    dirDict=dict(zip(dirList,emptyList))
+    return(dirDict)
 
-def makeDict():
-    dirContent=os.listdir(path)
-    dirLength=list(range(len(dirContent)))
-    data=dict(zip(dirLength,dirContent))
-    return(data)
 
-print(makeDict())
+print(dirDict("."))
+
 
 
