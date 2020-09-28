@@ -33,6 +33,14 @@ class Spyder:
                     self.hitList.append(key)
         print(self.hitList)
 
+    def crawl2(self):
+        for root, dirs, files in os.walk(".", topdown=True, onerror=None, followlinks=True):
+            for name in files:
+                if name.endswith(self.fileType):
+                    print(os.path.join(root, name))
+            for name in dirs:
+                print(os.path.join(root, name))
+
     def fileExtension(self):
         prompt = "Enter desired file extension"
         self.fileType = input(prompt)
@@ -40,7 +48,7 @@ class Spyder:
 
 x = Spyder(".")
 x.fileExtension()
-x.makeDict()
-x.crawl()
+#x.makeDict()
+x.crawl2()
 # add matching files, list dirs
 # os.chdir & print(os.path.abspath("."))
