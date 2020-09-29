@@ -1,32 +1,32 @@
+#!/usr/bin/python
+
 import os
-import pathlib
+import sys
+import shutil
 
-class Spyder:
-    def __init__(self, path):
-        self.path=path
-        self.dirDict=None
+List_dir = []
+List_file = []
 
-    def makeDict(self):
-        emptyList=[]
-        # Returns contents of current working dir
-        dirList = os.listdir(self.path)
-        # Checks to see if each content of working dir is a dir
-        for contents in dirList:
-            emptyList.append(os.path.isdir(contents))
-        # Combines lists to create dictionary with file name as key and isDir as value
-        self.dirDict=dict(zip(dirList,emptyList))
-        print(self.dirDict)
-        return(self.dirDict)
-    
-    def crawl(self):
-        for key, value in self.dirDict.items():
-            if value is True:
-                print(key + ' is a dir')
-            else:
-                print(key + ' is a file')
-        
-x = Spyder(".")
-x.makeDict()
-x.crawl()
+def getFiles(path=sys.argv[1], extension=sys.argv[2]): 
+    path = os.path.abspath(path)
+    for root, dirs, files in os.walk(path, topdown=False):
+        for name in files:
+            if name.endswith(extension):
+                List_file.append((os.path.join(root, name)))
+        for name in dirs:
+                List_dir.append(os.path.join(root, name))        
+    print(List_file)
 
+def moveFiles(path=sys.argv[1], destination=sys.argv[3]):
+    basename = []
+    destination = str(os.path.abspath(destination))
+    for file in List_file:
+        basename.append(os.path.basename(file))
+    #destination = [destination + "/" + file for file in basename]
+    for file_name in List_file:
+        shutil.move(os.path.join(path, file_name), destination)
+    print(List_file)
+    print(destination)
 
+getFiles()
+moveFiles()
