@@ -1,32 +1,60 @@
+#!/usr/bin/python3
+
 import os
-import pathlib
+import sys
+import shutil
 
-class Spyder:
-    def __init__(self, path):
-        self.path=path
-        self.dirDict=None
+List_dir = []
+List_file = []
 
-    def makeDict(self):
-        emptyList=[]
-        # Returns contents of current working dir
-        dirList = os.listdir(self.path)
-        # Checks to see if each content of working dir is a dir
-        for contents in dirList:
-            emptyList.append(os.path.isdir(contents))
-        # Combines lists to create dictionary with file name as key and isDir as value
-        self.dirDict=dict(zip(dirList,emptyList))
-        print(self.dirDict)
-        return(self.dirDict)
-    
-    def crawl(self):
-        for key, value in self.dirDict.items():
-            if value is True:
-                print(key + ' is a dir')
-            else:
-                print(key + ' is a file')
-        
-x = Spyder(".")
-x.makeDict()
-x.crawl()
+def getFiles(path=sys.argv[1], extension=sys.argv[2]): 
+    if os.path.exists(path):
+        path = os.path.abspath(path)
+        for root, dirs, files in os.walk(path, topdown=False):
+            for name in files:
+                if name.endswith(extension):
+                    List_file.append((os.path.join(root, name)))
+            for name in dirs:
+                    List_dir.append(os.path.join(root, name))       
+    else:
+        raise ValueError('The path does not exist')    
 
+def moveFiles(path=sys.argv[1], destination=sys.argv[3], options=None):
+    if len(sys.argv) == 5:
+        options = sys.argv[4]
+    else:
+        options = None
+    if os.path.exists(destination):
+        basename = []
+        destination = str(os.path.abspath(destination))
+        for file in List_file:
+            basename.append(os.path.basename(file))
+        #destination = [destination + "/" + file for file in basename]
+        if options == "-force":
+            for file_name in List_file:
+                shutil.move(os.path.join(path, file_name), destination)
+            print("The files:" + "\n" + "\n" + str('\n'.join([str(i) for i in List_file])) + "\n" + "\n" + "Have been moved to:" + "\n" + "\n" + str(destination))
+        elif options is None:
+            while True:
+                confirmation = input("You are about to move the following files:" + "\n" + "\n" + str('\n'.join([str(i) for i in List_file])) + "\n" + "\n" + "To this destination:" + "\n" + "\n" + str(destination) + "\n" + "\n" + "Are you sure you want to do this?" + "\n")
+                if confirmation.lower() == "y" or confirmation.lower() == "yes":
+                    for file_name in List_file:
+                        shutil.move(os.path.join(path, file_name), destination)
+                    print("\n" + "The files:" + "\n" + "\n" + str('\n'.join([str(i) for i in List_file])) + "\n" + "\n" + "Have been moved to:" + "\n" + "\n" + str(destination))
+                    break
+                elif confirmation.lower() == "n" or confirmation.lower() == "no":
+                    print("Program terminated.")
+                    pass  
+                    break
+                else:         
+                    print("Please answer Yes[Y] or No[N]")
+        else:
+            raise ValueError('That argument is not recognized. Please use -force to disregard safety; otherwise, do not add an option.')    
+    else:
+        raise ValueError('The destination path does not exist')    
 
+def run():
+    getFiles()
+    moveFiles()
+
+run()
