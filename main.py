@@ -18,9 +18,12 @@ def getFiles(path=sys.argv[1], extension=sys.argv[2]):
                     List_dir.append(os.path.join(root, name))       
     else:
         raise ValueError('The path does not exist')    
-    print(List_file)
 
-def moveFiles(path=sys.argv[1], destination=sys.argv[3], options=sys.argv[4]):
+def moveFiles(path=sys.argv[1], destination=sys.argv[3], options=None):
+    if len(sys.argv) == 5:
+        options = sys.argv[4]
+    else:
+        options = None
     if os.path.exists(destination):
         basename = []
         destination = str(os.path.abspath(destination))
@@ -30,12 +33,14 @@ def moveFiles(path=sys.argv[1], destination=sys.argv[3], options=sys.argv[4]):
         if options == "-force":
             for file_name in List_file:
                 shutil.move(os.path.join(path, file_name), destination)
+            print("The files" + "\n" + "\n" + str('\n'.join([str(i) for i in List_file])) + "\n" + "\n" + "have been moved to " + "\n" + "\n" + str(destination))
         elif options is None:
             while True:
-                confirmation = input("Are you sure?")
+                confirmation = input("You are about to move the following files:" + "\n" + "\n" + str('\n'.join([str(i) for i in List_file])) + "\n" + "\n" + "To this destination:" + "\n" + "\n" + str(destination) + "\n" + "\n" + "Are you sure you want to do this?" + "\n")
                 if confirmation.lower() == "y" or confirmation.lower() == "yes":
                     for file_name in List_file:
                         shutil.move(os.path.join(path, file_name), destination)
+                    print("\n" + "The files:" + "\n" + "\n" + str('\n'.join([str(i) for i in List_file])) + "\n" + "\n" + "Have been moved to:" + "\n" + "\n" + str(destination))
                     break
                 elif confirmation.lower() == "n" or confirmation.lower() == "no":
                     print("Program terminated.")
@@ -47,9 +52,6 @@ def moveFiles(path=sys.argv[1], destination=sys.argv[3], options=sys.argv[4]):
             raise ValueError('That argument is not recognized. Please use -force to disregard safety; otherwise, do not add an option.')    
     else:
         raise ValueError('The destination path does not exist')    
-
-    print(List_file)
-    print(destination)
 
 getFiles()
 moveFiles()
