@@ -33,7 +33,7 @@ def moveFiles(path=sys.argv[1], destination=sys.argv[3], options=None):
         if options == "-force":
             for file_name in List_file:
                 shutil.move(os.path.join(path, file_name), destination)
-            print("The files" + "\n" + "\n" + str('\n'.join([str(i) for i in List_file])) + "\n" + "\n" + "have been moved to " + "\n" + "\n" + str(destination))
+            print("The files:" + "\n" + "\n" + str('\n'.join([str(i) for i in List_file])) + "\n" + "\n" + "Have been moved to:" + "\n" + "\n" + str(destination))
         elif options is None:
             while True:
                 confirmation = input("You are about to move the following files:" + "\n" + "\n" + str('\n'.join([str(i) for i in List_file])) + "\n" + "\n" + "To this destination:" + "\n" + "\n" + str(destination) + "\n" + "\n" + "Are you sure you want to do this?" + "\n")
@@ -53,5 +53,8 @@ def moveFiles(path=sys.argv[1], destination=sys.argv[3], options=None):
     else:
         raise ValueError('The destination path does not exist')    
 
-getFiles()
-moveFiles()
+def run():
+    getFiles()
+    moveFiles()
+
+run()
